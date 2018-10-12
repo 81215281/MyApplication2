@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 
 import org.w3c.dom.Text;
 
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         TextView tv = findViewById(R.id.tv1);
-        tv.setText(tv.getText()+ Utils.getName());
+        tv.setText(tv.getText()+ stringFromJNI());
         Log.d("weixf",JSON.parse("[{\"outputType\":{\"type\":\"APK\"},\"apkInfo\":{\"type\":\"MAIN\",\"splits\":[],\"versionCode\":1,\"versionName\":\"1.0\",\"enabled\":true,\"outputFile\":\"app-debug.apk\",\"fullName\":\"debug\",\"baseName\":\"debug\"},\"path\":\"app-debug.apk\",\"properties\":{}}]").toString());
 
         Gson gson = new Gson();
@@ -66,5 +67,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public native String stringFromJNI();
+
+    // Used to load the 'native-lib' library on application startup.
+    static {
+        System.loadLibrary("native-lib");
     }
 }
